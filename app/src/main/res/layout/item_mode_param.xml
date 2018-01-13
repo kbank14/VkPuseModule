@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/mode_index"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="0"
+        android:textAlignment="center"
+        tools:ignore="RtlHardcoded" />
+
+    <EditText
+        android:id="@+id/mode_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:inputType="number"
+        android:selectAllOnFocus="true"
+        android:textAlignment="center"
+        android:textSize="@dimen/io_text_size"
+        tools:ignore="InefficientWeight" />
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/mode_action"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:checked="true"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text="@string/text_off"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/mode_pulse_count"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:textAlignment="center"
+        tools:ignore="HardcodedText,RtlHardcoded" />
+
+</LinearLayout>

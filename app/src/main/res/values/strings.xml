@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">PULSE MODULE</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_full_screen">Full screen</string>
+    <string name="action_monitor">Monitor Mode</string>
+    <string name="action_control">Control Mode</string>
+    <string name="action_set_param">Set params</string>
+    <string name="action_set_io">Set IO</string>
+    <string name="action_set_all_io">Set ALL IO</string>
+    <string name="action_about_mds">About MDS?</string>
+    <string name="title_activity_app_list">AppListActivity</string>
+    <string name="title_activity_status">StatusActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_mds_list">MDS Devices</string>
+    <string name="title_mds_detail">Mds Detail</string>
+    <string name="title_activity_home">Vermes Korea MDS K101</string>
+
+    <string name="title_company">Vermes Korea Co., Ltd.</string>
+    <string name="title_email">salemaster@vermes.co.kr</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="menu_all_auto">All Auto</string>
+    <string name="menu_all_manual">All Manual</string>
+    <string name="menu_scan_device">Scan devices</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_language_settings">Language Settings</string>
+    <string name="menu_load_driver">Load driver</string>
+
+    <string name="text_load_driver">Loading.....</string>
+
+    <string name="button_cancel">Cancel</string>
+    <string name="title_activity_load_device">LoadDeviceActivity</string>
+    <string name="title_home">Home</string>
+    <string name="ld_title_msg">Super user</string>
+    <string name="ld_title_text">su 권한 검사</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="text_name">NAME</string>
+    <string name="text_change">CHANGE</string>
+    <string name="text_current">CURRENT</string>
+    <string name="text_set">SET</string>
+
+    <string name="text_on">ON</string>
+    <string name="text_off">OFF</string>
+    <string name="text_output">OUTPUT #0</string>
+    <string name="text_input">INPUT #0</string>
+    <string name="text_ms">ms</string>
+    <string name="text_message">Message</string>
+    <string name="text_no_devices">No Devices</string>
+    <string name="text_unplugged">Unplugged device</string>
+    <string name="text_minus">-</string>
+    <string name="text_action">ACTION</string>
+    <string name="text_work">WORK</string>
+    <string name="text_auto">Auto</string>
+    <string name="text_dev">Dev #</string>
+    <string name="text_mode">MODE</string>
+    <string name="text_manual">Manual</string>
+    <string name="text_offline">Offline</string>
+    <string name="text_online">Online</string>
+    <string name="text_run">Run</string>
+    <string name="text_status">STATUS</string>
+    <string name="text_stop">Stop</string>
+
+    <string name="text_left_sign">&lt;</string>
+    <string name="text_right_sign">&gt;</string>
+
+    <!-- 특수 문자 입력-->
+    <string name="special_char7"><![CDATA[공지 & << >> 알림]]></string>
+</resources>

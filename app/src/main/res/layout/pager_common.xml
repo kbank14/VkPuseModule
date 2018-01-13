@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/device_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="@dimen/grid_layout_margin"
+            android:layout_marginTop="@dimen/grid_layout_margin"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="7"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical|right"
+                android:text="Input pulse count"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/grid_dev_name_size"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+            <EditText
+                android:id="@+id/input_pulse_count"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="4"
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:selectAllOnFocus="true"
+                android:textAlignment="viewEnd"
+                android:textSize="@dimen/grid_dev_text_size" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="@dimen/grid_layout_margin"
+            android:layout_marginTop="@dimen/grid_layout_margin"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="7"
+                android:gravity="center_vertical|right"
+                android:text="Distance(mm)"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/grid_dev_name_size"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+            <EditText
+                android:id="@+id/move_length"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="4"
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:selectAllOnFocus="true"
+                android:textAlignment="viewEnd"
+                android:textSize="@dimen/grid_dev_text_size" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="@dimen/grid_layout_margin"
+            android:layout_marginTop="@dimen/grid_layout_margin"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="7"
+                android:gravity="center_vertical|right"
+                android:text="Cut left (%)"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/grid_dev_name_size"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+
+            <EditText
+                android:id="@+id/cut_left"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="4"
+                android:gravity="center_vertical"
+                android:inputType="numberDecimal"
+                android:selectAllOnFocus="true"
+                android:textAlignment="viewEnd"
+                android:textSize="@dimen/grid_dev_text_size" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="@dimen/grid_layout_margin"
+            android:layout_marginTop="@dimen/grid_layout_margin"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="7"
+                android:gravity="center_vertical|right"
+                android:text="Cut right(%)"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/grid_dev_name_size"
+                tools:ignore="NestedWeights,RtlHardcoded" />
+
+            <EditText
+                android:id="@+id/cut_right"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="4"
+                android:gravity="center_vertical"
+                android:inputType="numberDecimal"
+                android:selectAllOnFocus="true"
+                android:textAlignment="viewEnd"
+                android:textSize="@dimen/grid_dev_text_size" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+    </LinearLayout>
+
+
+</LinearLayout>
