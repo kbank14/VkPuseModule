@@ -62,6 +62,10 @@ public class HomeActivity extends AppCompatActivity {
 
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setViewPager(mViewPager);
+
+        checkPermission();
+        if (PulseModuleData.getInstance().loadFile() == true)
+            PulseModuleData.getInstance().setFile();
     }
 
     @Override
@@ -92,7 +96,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        int mode = mViewPager.getCurrentItem() - 1;
+        int mode = mViewPager.getCurrentItem() - 2;
         switch (id) {
             case R.id.action_load:
                 checkPermission();
@@ -215,6 +219,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         _isPolling = true;
         Polling();
     }

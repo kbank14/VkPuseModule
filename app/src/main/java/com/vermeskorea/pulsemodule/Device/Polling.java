@@ -39,6 +39,8 @@ public class Polling {
         mCPView1 = v1;
         mCPView2 = v2;
         mText = v3;
+
+        oldState = "";
     }
 
     private void setColor(boolean isRun) {
@@ -116,7 +118,7 @@ public class Polling {
             @Override
             public void run() {
                 try {
-                    mCPView1.setMaxValue(v);
+                    mCPView1.setMaxValue(Float.compare(v, 0) == 0 ? 1 : v);
                 } catch (Exception e) {
                     mCPView1 = null;
                 }
@@ -207,16 +209,9 @@ public class Polling {
 
     private String oldState = "~";
 
-
-    public boolean getDeviceState() {
+    public boolean setDeviceState(String value) {
         if( mCPView1 == null || mCPView2 == null)
             return false;
-
-        String value = readDevice(infoFilePath);
-        if (oldState.equals(value) == true)
-            return false;
-
-        oldState = value;
 
         String[] ar = value.split("\n");
         for (int i = 0; i < ar.length; i++) {
@@ -243,6 +238,20 @@ public class Polling {
                 }
             }
         }
+
+        return true;
+    }
+
+    public boolean getDeviceState() {
+        if( mCPView1 == null || mCPView2 == null)
+            return false;
+
+        String value = readDevice(infoFilePath);
+        if (oldState.equals(value) == true)
+            return false;
+
+        oldState = value;
+        setDeviceState(value);
 
         return true;
     }

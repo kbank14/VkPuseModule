@@ -1,10 +1,14 @@
 package com.vermeskorea.pulsemodule.Data;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,15 +41,15 @@ public class PulseModuleData {
 
     public int calcTargetPulse(int distance) {
         if (inPulseCount <= 0 ||
-            inPulseLength <= 0)
+                inPulseLength <= 0)
             return 0;
 
-        int target = (int)((double)distance / (double)inPulseLength * inPulseCount);
+        int target = (int) ((double) distance / (double) inPulseLength * inPulseCount);
 
-        if( cutLeft > 0)
+        if (cutLeft > 0)
             target -= (double) cutLeft / 100.0 * target;
-        if( cutRight > 0)
-            target -= (double) cutRight / 100.0  * target;
+        if (cutRight > 0)
+            target -= (double) cutRight / 100.0 * target;
 
         return target;
     }
@@ -118,11 +122,10 @@ public class PulseModuleData {
     private String fileDir = "/sdcard";
     private String fileName = fileDir + "/vkpulse.txt";
 
-    private  String vkDeviceDir = "/sys/class/vk";
-    private  String vkDevicePath = vkDeviceDir +"/vkfile";
+    private String vkDeviceDir = "/sys/class/vk";
+    private String vkDevicePath = vkDeviceDir + "/vk_file";
 
-    private  synchronized void setConfigValue()
-    {
+    public synchronized void setConfigValue() {
         File dir = makeDirectory(vkDeviceDir);
         File file = openFile(dir, vkDevicePath);
         if (file == null || file.exists() == false)
@@ -190,6 +193,34 @@ public class PulseModuleData {
         return false;
     }
 
+    public boolean writeDevice(String path, String content) {
+        File f = new File(path);
+        if (f == null || f.exists() == false)
+            return false;
+
+        StringBuffer output = new StringBuffer();
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(f));
+            writer.write(content);
+            writer.close();
+
+            return true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    String setFilePath = "/sys/class/vk/vk_set";
+
+    private void setParam(String line) {
+        writeDevice(setFilePath, line);
+    }
+
     public synchronized boolean saveFile() {
         File dir = makeDirectory(fileDir);
         File file = newFile(dir, fileName);
@@ -208,7 +239,7 @@ public class PulseModuleData {
             fos.write(write.getBytes());
             fos.flush();
 
-            for (int i = 0; i < 8 && i < pulseArray.size(); i++) {
+             for (int i = 0; i < 8 && i < pulseArray.size(); i++) {
                 List<PulseParamInfo> list = pulseArray.get(i);
                 for (int j = 0; j < list.size(); j++) {
                     PulseParamInfo val = list.get(j);
@@ -226,11 +257,52 @@ public class PulseModuleData {
             }
             fos.close();
 
-            setConfigValue();
+            setFile();
+
             return true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public synchronized boolean setFile() {
+        setParam("@");
+
+        // C <inPulseCount> <inPulseLength> <cutLeft> <cutRight>
+        String write = String.format("C %d %d %d %d\n",
+                inPulseCount,
+                inPulseLength,
+                cutLeft,
+                cutRight);
+
+        try {
+            setParam(write);
+
+            for (int i = 0; i < 8 && i < pulseArray.size(); i++) {
+                List<PulseParamInfo> list = pulseArray.get(i);
+                for (int j = 0; j < list.size(); j++) {
+                    PulseParamInfo val = list.get(j);
+
+                    // D <mode> <index> <length> <action> <pulse count>
+                    write = String.format("D %d %d %d %c %d\n",
+                            i,
+                            j,
+                            val.Distance,
+                            val.Action,
+                            val.PulseCount);
+                    setParam(write);
+                }
+            }
+
+            setParam("?");
+            return true;
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -292,8 +364,7 @@ public class PulseModuleData {
         return result;
     }
 
-    private  void RunDevice()
-    {
+    private void RunDevice() {
         String sysfs = "/sys/class/vk/vk_timer_sysfs";
     }
 }

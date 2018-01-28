@@ -70,7 +70,7 @@ public class SettingPagerAdapter extends PagerAdapter {
             case 1 :
                 return "COMMON";
             default:
-                return "MODE " + (position - 1);
+                return "MODE " + (position - 2);
         }
     }
 
@@ -225,7 +225,7 @@ public class SettingPagerAdapter extends PagerAdapter {
     private ModeParamAdapter modeAdapter;
     private  void ModeLoad(View v, int pos)
     {
-         modeAdapter = new ModeParamAdapter(pos - 1);
+        modeAdapter = new ModeParamAdapter(pos - 2);
         value_list = (RecyclerView) v.findViewById(R.id.value_list);
         value_list.setAdapter(modeAdapter);
     }
