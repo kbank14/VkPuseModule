@@ -2,19 +2,25 @@ package com.vermeskorea.pulsemodule.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.vermeskorea.pulsemodule.Data.PulseModuleData;
+import com.vermeskorea.pulsemodule.Device.Polling;
 import com.vermeskorea.pulsemodule.R;
 
 import java.util.List;
+
+import at.grabner.circleprogress.CircleProgressView;
+import at.grabner.circleprogress.TextMode;
 
 /**
  * Created by kbank14 on 2018-01-07.
@@ -37,7 +43,7 @@ public class SettingPagerAdapter extends PagerAdapter {
     }
     @Override
     public int getCount() {
-        return 9;
+        return 10;
     }
 
     @Override
@@ -57,26 +63,37 @@ public class SettingPagerAdapter extends PagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        if(position == 0)
-            return "COMMON";
-
-        return "MODE " + (position - 1);
+        switch (position)
+        {
+            case 0 :
+                return "HOME";
+            case 1 :
+                return "COMMON";
+            default:
+                return "MODE " + (position - 1);
+        }
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View view;
 
-        if( position == 0) {
-            view = mActivity.getLayoutInflater().inflate(R.layout.pager_common, container, false);
-            CommonLoad(view);
+        switch (position)
+        {
+            case 0 :
+                view = mActivity.getLayoutInflater().inflate(R.layout.pager_home, container, false);
+                HomeLoad(view);
+                break;
+            case 1 :
+                view = mActivity.getLayoutInflater().inflate(R.layout.pager_common, container, false);
+                CommonLoad(view);
+                break;
+            default:
+                view = mActivity.getLayoutInflater().inflate(R.layout.pager_mode_param, container, false);
+                ModeLoad(view, position);
+                break;
         }
-        else {
-            view = mActivity.getLayoutInflater().inflate(R.layout.pager_mode_param, container, false);
-            ModeLoad(view, position);
-        }
-
-        container.addView(view);
+         container.addView(view);
         return  view;
     }
 
@@ -85,12 +102,29 @@ public class SettingPagerAdapter extends PagerAdapter {
         container.removeView((View) object);
     }
 
+    private void HomeLoad(View v) {
+        CircleProgressView pulse = (CircleProgressView) v.findViewById(R.id.pulse_module_pulse);
+        CircleProgressView state= (CircleProgressView) v.findViewById(R.id.pulse_module_state);
+        TextView text = (TextView) v.findViewById(R.id.data_load_string);
+
+        state.setTextMode(TextMode.TEXT);
+        Polling.getInstance().Add(pulse, state, text);
+    }
     private void CommonLoad(View v)
     {
         EditText input_pulse_count = (EditText) v.findViewById(R.id.input_pulse_count);
         EditText move_length = (EditText) v.findViewById(R.id.move_length);
         EditText cut_left = (EditText) v.findViewById(R.id.cut_left);
         EditText cut_right = (EditText) v.findViewById(R.id.cut_right);
+        Button btn = (Button) v.findViewById(R.id.btn_calibrate);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Intent.ACTION_RUN);
+                i.setClassName("com.android.development", "com.android.development.PointerLocation");
+                mActivity.startActivity(i);
+            }
+        });
 
         input_pulse_count.setText(String.valueOf(PulseModuleData.getInstance().inPulseCount));
         move_length.setText(String.valueOf(PulseModuleData.getInstance().inPulseLength));

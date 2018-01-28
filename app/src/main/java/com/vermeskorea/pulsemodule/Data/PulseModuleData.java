@@ -115,11 +115,11 @@ public class PulseModuleData {
         }
     }
 
-    private String fileDir = "/storage/sdcard0";
+    private String fileDir = "/sdcard";
     private String fileName = fileDir + "/vkpulse.txt";
 
-    private  String vkDeviceDir = "/sys/sys/class/vk";
-    private  String vkDevicePath = vkDeviceDir +"//vk_pulse_module_sysfs";
+    private  String vkDeviceDir = "/sys/class/vk";
+    private  String vkDevicePath = vkDeviceDir +"/vkfile";
 
     private  synchronized void setConfigValue()
     {
@@ -141,11 +141,11 @@ public class PulseModuleData {
         }
     }
 
-    public synchronized void loadFile() {
+    public synchronized boolean loadFile() {
         File dir = makeDirectory(fileDir);
         File file = openFile(dir, fileName);
         if (file == null || file.exists() == false)
-            return;
+            return false;
 
         clear();
         try {
@@ -181,17 +181,20 @@ public class PulseModuleData {
                     }
                 }
             }
+
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        return false;
     }
 
-    public synchronized void saveFile() {
+    public synchronized boolean saveFile() {
         File dir = makeDirectory(fileDir);
         File file = newFile(dir, fileName);
         if (file == null || file.exists() == false)
-            return;
+            return false;
 
         // C <inPulseCount> <inPulseLength> <cutLeft> <cutRight>
         String write = String.format("C %d %d %d %d\n",
@@ -224,11 +227,14 @@ public class PulseModuleData {
             fos.close();
 
             setConfigValue();
+            return true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return false;
     }
 
     private boolean deleteFile(File file) {
@@ -288,6 +294,6 @@ public class PulseModuleData {
 
     private  void RunDevice()
     {
-        String sysfs = "/sys/sys/class/vk/vk_timer_sysfs";
+        String sysfs = "/sys/class/vk/vk_timer_sysfs";
     }
 }
