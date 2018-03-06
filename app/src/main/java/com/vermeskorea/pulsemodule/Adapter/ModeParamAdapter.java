@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -140,11 +141,26 @@ public class ModeParamAdapter extends RecyclerView.Adapter<ModeParamAdapter.View
                     ViewHolder vh = (ViewHolder) sc.getTag();
 
                     if (!sc.isChecked()) {
-                        sc.setText("LOW");
+                        //sc.setText("LOW");
                         PulseModuleData.getInstance().get(mMode, vh.position).Action = 'L';
                     } else {
+                        //sc.setText("HIGH");
+                        PulseModuleData.getInstance().get(mMode, vh.position).Action = 'H';
+                    }
+                }
+            });
+            mode_action.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    SwitchCompat sc = (SwitchCompat) compoundButton;
+                    ViewHolder vh = (ViewHolder) sc.getTag();
+
+                    if (isChecked) {
                         sc.setText("HIGH");
                         PulseModuleData.getInstance().get(mMode, vh.position).Action = 'H';
+                    } else {
+                        sc.setText("LOW");
+                        PulseModuleData.getInstance().get(mMode, vh.position).Action = 'L';
                     }
                 }
             });
