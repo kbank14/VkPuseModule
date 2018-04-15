@@ -18,15 +18,15 @@ import java.util.List;
 
 public class PulseModuleData {
     public static class PulseParamInfo {
-        public int Distance = 0;                     // 길이
+        public double Distance = 0;                     // 길이
         public int Action = 'L';                     // 동작 'L'=Low, 'H'=High
         public int PulseCount = 0;                 // 동작 펄수 개수
     }
 
     public int inPulseCount = 1000;   // 입력펄스 개수
-    public int inPulseLength = 1;    // inPulseCount당 이동거리 1mm
-    public int cutLeft = 1;          // 지연 컷 %(왼쪽)
-    public int cutRight = 1;         // 지연 컷(오른쪽)
+    public double inPulseLength = 1;    // inPulseCount당 이동거리 1mm
+    public int cutLeft = 0;          // 지연 컷 %(왼쪽)
+    public int cutRight = 0;         // 지연 컷(오른쪽)
 
     private List<List<PulseParamInfo>> pulseArray;
 
@@ -39,7 +39,7 @@ public class PulseModuleData {
         return mPulseModuleData;
     }
 
-    public int calcTargetPulse(int distance) {
+    public int calcTargetPulse(double distance) {
         if (inPulseCount <= 0 ||
                 inPulseLength <= 0)
             return 0;
@@ -167,7 +167,7 @@ public class PulseModuleData {
                     switch (line[0]) {
                         case "C":
                             inPulseCount = Integer.parseInt(line[1]);
-                            inPulseLength = Integer.parseInt(line[2]);
+                            inPulseLength = Double.parseDouble(line[2]);
                             cutLeft = Integer.parseInt(line[3]);
                             cutRight = Integer.parseInt(line[4]);
                             break;
@@ -175,7 +175,7 @@ public class PulseModuleData {
                             PulseParamInfo info = new PulseParamInfo();
                             int mode = Integer.parseInt(line[1]);
                             //int index = Integer.parseInt(line[2]);
-                            info.Distance = Integer.parseInt(line[3]);
+                            info.Distance = Double.parseDouble(line[3]);
                             info.Action = line[4].charAt(0);
                             info.PulseCount = Integer.parseInt(line[5]);
 
@@ -228,7 +228,7 @@ public class PulseModuleData {
             return false;
 
         // C <inPulseCount> <inPulseLength> <cutLeft> <cutRight>
-        String write = String.format("C %d %d %d %d\n",
+        String write = String.format("C %d %f %d %d\n",
                 inPulseCount,
                 inPulseLength,
                 cutLeft,
@@ -245,7 +245,7 @@ public class PulseModuleData {
                     PulseParamInfo val = list.get(j);
 
                     // D <mode> <index> <length> <action> <pulse count>
-                    write = String.format("D %d %d %d %c %d\n",
+                    write = String.format("D %d %d %f %c %d\n",
                             i,
                             j,
                             val.Distance,
@@ -275,7 +275,7 @@ public class PulseModuleData {
         setParam("@");
 
         // C <inPulseCount> <inPulseLength> <cutLeft> <cutRight>
-        String write = String.format("C %d %d %d %d\n",
+        String write = String.format("C %d %f %d %d\n",
                 inPulseCount,
                 inPulseLength,
                 cutLeft,
@@ -293,7 +293,7 @@ public class PulseModuleData {
                     write = String.format("D %d %d %d %c %d\n",
                             i,
                             j,
-                            val.Distance,
+                            (int) val.Distance,
                             val.Action,
                             val.PulseCount);
                     setParam(write);

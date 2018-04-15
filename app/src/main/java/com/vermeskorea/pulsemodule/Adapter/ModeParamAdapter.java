@@ -48,10 +48,10 @@ public class ModeParamAdapter extends RecyclerView.Adapter<ModeParamAdapter.View
         holder.mode_index.setText(String.valueOf(position));
         holder.mode_distance.setText(String.valueOf(info.Distance));
         if (info.Action == 'L') {
-            //holder.mode_action.setText("LOW");
+            holder.mode_action.setText("LOW");
             holder.mode_action.setChecked(false);
         } else {
-            //holder.mode_action.setText("HIGH");
+            holder.mode_action.setText("HIGH");
             holder.mode_action.setChecked(true);
         }
         holder.mode_pulse_count.setText(String.valueOf(info.PulseCount));
@@ -96,7 +96,7 @@ public class ModeParamAdapter extends RecyclerView.Adapter<ModeParamAdapter.View
                         ViewHolder vh = (ViewHolder) et.getTag();
                         PulseModuleData.PulseParamInfo info = PulseModuleData.getInstance().get(mMode, vh.position);
 
-                        int distance = Integer.parseInt(et.getText().toString());
+                        double distance = Double.parseDouble(et.getText().toString());
                         int pulse = PulseModuleData.getInstance().calcTargetPulse(distance);
                         info.Distance = distance;
                         info.PulseCount = pulse;
@@ -119,7 +119,7 @@ public class ModeParamAdapter extends RecyclerView.Adapter<ModeParamAdapter.View
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                      try {
-                        int distance = Integer.parseInt(charSequence.toString());
+                        double distance = Double.parseDouble(charSequence.toString());
                         int pulse = PulseModuleData.getInstance().calcTargetPulse(distance);
                         mode_pulse_count.setText(String.valueOf(pulse));
                     } catch (Exception e) {
@@ -164,6 +164,7 @@ public class ModeParamAdapter extends RecyclerView.Adapter<ModeParamAdapter.View
                     }
                 }
             });
+
         }
 
         @Override

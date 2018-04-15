@@ -235,6 +235,9 @@ public class Polling {
                     case "data load":
                         setValue3(Integer.parseInt(line[1]) != 0 ? "Data loaded" : "No data");
                         break;
+
+                    case "Last Pulse":
+                        break;
                 }
             }
         }
