@@ -162,7 +162,7 @@ public class SettingPagerAdapter extends PagerAdapter {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 try {
-                    PulseModuleData.getInstance().inPulseLength = Integer.parseInt(charSequence.toString());
+                    PulseModuleData.getInstance().inPulseLength = Double.parseDouble(charSequence.toString());
                 }
                 catch (Exception e)
                 {
